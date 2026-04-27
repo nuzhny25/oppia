@@ -1859,23 +1859,22 @@ class DeletedUser:
         """Initializes a DeletedUser domain object.
 
         Args:
-            user_id: str. The id of the deleted user.
+            user_id: str. The unique id of the deleted user.
         """
         self.user_id = user_id
 
     def validate(self) -> None:
-        """Validates the properties of DeletedUser.
+        """Validates the various properties of the DeletedUser object.
 
         Raises:
-            ValidationError: if any of the properties are invalid.
+            ValidationError. if any of the attributes are invalid.
         """
 
         if not isinstance(self.user_id, str):
             raise utils.ValidationError(
-                f"Expected user_id to be str, received {(type(self.user_id))}"
+                f'Expected user_id to be str, received {(type(self.user_id))}'
             )
 
-        if not self.user_id.strip():
-            raise utils.ValidationError(
-                "Expected user_id to be a nonempty string"
-            )
+        if self.user_id.strip() is None:
+            raise utils.ValidationError('Expected \'user_id\' to not be None')
+        utils.require_valid_name(self.user_id, 'the user ID', allow_empty=False)
