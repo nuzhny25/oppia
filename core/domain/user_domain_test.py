@@ -1956,3 +1956,7 @@ class UserContributionRightsUnitTest(test_utils.GenericTestBase):
         self.assertFalse(
             user_contribution_rights.can_submit_at_least_one_item()
         )
+
+
+class DeletedUserTests(test_utils.GenericTestBase):
+    """Tests for the DeletedUser domain object."""
