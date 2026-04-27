@@ -1960,3 +1960,11 @@ class UserContributionRightsUnitTest(test_utils.GenericTestBase):
 
 class DeletedUserTests(test_utils.GenericTestBase):
     """Tests for the DeletedUser domain object."""
+
+    def test_deleted_user_gets_created(self) -> None:
+        deleted_user = user_domain.DeletedUser('user')
+        deleted_user.validate()
+
+    def test_user_id_cannot_be_none(self) -> None:
+        with self.assertRaisesRegex(utils.ValidationError, 'user ID'):
+            user_domain.DeletedUser('').validate()
