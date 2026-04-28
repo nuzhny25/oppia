@@ -1867,7 +1867,7 @@ class DeletedUser:
         """Validates the various properties of the DeletedUser object.
 
         Raises:
-            ValidationError. if any of the attributes are invalid.
+            ValidationError. If any of the attributes are invalid.
         """
 
         if not isinstance(self.user_id, str):
