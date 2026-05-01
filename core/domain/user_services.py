@@ -1753,6 +1753,19 @@ def save_deleted_username(normalized_username: str) -> None:
     deleted_user_model.put()
 
 
+def _get_deleted_user_from_model(model) -> user_domain.DeletedUser:
+    """Takes a DeletedUserModel and returns a DeletedUser object."""
+    ...
+
+
+def save_deleted_user(deleted_user: user_domain.DeletedUser) -> None:
+    """Saves DeletedUser object into DeletedUserModel"""
+    deleted_user.validate()
+    deleted_user_model = user_models.DeletedUserModel(id=deleted_user.user_id)
+    deleted_user_model.update_timestamps()
+    deleted_user_model.put()
+
+
 def get_human_readable_user_ids(
     user_ids: List[str], strict: bool = True, include_deleted: bool = False
 ) -> List[str]:
