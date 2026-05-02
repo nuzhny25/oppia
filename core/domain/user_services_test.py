@@ -263,10 +263,17 @@ class UserServicesUnitTests(test_utils.GenericTestBase):
     def test_save_valid_deleted_user(self) -> None:
         user_id = 'user_id'
         deleted_user = user_domain.DeletedUser(user_id)
-        save_deleted_user(deleted_user)
+        user_services.save_deleted_user(deleted_user)
         assert user_models.DeletedUserModel.get_by_id(user_id) is not None
 
-    def test_save_invalid_deleted_user(self) -> None: ...
+    def test_save_invalid_deleted_user(self) -> None:
+        user_id = ''
+        deleted_user = user_domain.DeletedUser(user_id)
+
+        error_msg = 'Expected \'user_id\' to not be None'
+
+        with self.assertRaisesRegex(utils.ValidationError, error_msg):
+            user_services.save_deleted_user(deleted_user)
 
     def test_set_invalid_usernames(self) -> None:
         auth_id = 'someUser'
